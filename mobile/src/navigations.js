@@ -70,7 +70,7 @@ const Tabs = TabNavigator(
       activeTintColor: colors.PRIMARY,
       inactiveTintColor: colors.LIGHT_GRAY,
       style: {
-        backgroundColor: colors.WHITE,
+        backgroundColor: colors.BASE_GRAY,
         height: 50,
         paddingVertical: 5
       }
@@ -90,11 +90,12 @@ const AppMainNav = StackNavigator(
     },
     navigationOptions: () => ({
       headerStyle: {
-        backgroundColor: colors.WHITE
+        backgroundColor: colors.BASE_GRAY
       },
       headerTitleStyle: {
         fontWeight: "bold",
-        color: colors.SECONDARY
+        fontSize: 24,
+        color: colors.BLUE
       }
     })
   }

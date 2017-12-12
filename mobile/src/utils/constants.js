@@ -2,7 +2,10 @@ export const colors = {
   PRIMARY: "#55ACEE",
   SECONDARY: "#444B52",
   WHITE: "#FFFFFF",
-  LIGHT_GRAY: "#CAD0D6"
+  PINK: "#F093ED",
+  BLUE: "#5D70F1",
+  LIGHT_GRAY: "#CAD0D6",
+  BASE_GRAY: "#979797"
 };
 
 export const fakeAvatar =

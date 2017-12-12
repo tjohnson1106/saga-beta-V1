@@ -25,6 +25,7 @@ class HomeScreen extends Component {
         </Root>
       );
     }
+    // Pull in <FeedCard /> for static UI
     return (
       <Root>
         <FlatList

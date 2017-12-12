@@ -6,9 +6,9 @@ import FeedCardBottom from "./FeedCardBottom";
 
 const Root = styled.View`
 /* prettier-ignore */
-  minHeight: 200;
+  minHeight: 240;
   /* prettier-ignore */
-  backgroundColor: ${props => props.theme.WHITE};
+  backgroundColor: ${props => props.theme.BASE_GRAY};
   width: 100%;
   padding: 7px;
   /* prettier-ignore */
@@ -35,7 +35,7 @@ const CardContentText = styled.Text`
   textAlign: left;
   /* prettier-ignore */
   fontWeight: 500;
-  color: ${props => props.theme.SECONDARY};
+  color: ${props => props.theme.PINK};
 `;
 
 function FeedCard({ text, user, createdAt, favoriteCount }) {

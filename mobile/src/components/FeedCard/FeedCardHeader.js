@@ -63,7 +63,7 @@ const MetaFullName = styled.Text`
   fontSize: 16;
   /* prettier-ignore */
   fontWeight: bold;
-  color: ${props => props.theme.SECONDARY};
+  color: ${props => props.theme.PINK};
 `;
 
 const MetaText = styled.Text`

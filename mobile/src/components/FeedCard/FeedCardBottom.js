@@ -29,7 +29,7 @@ const Button = styled(Touchable).attrs({
 
 const ButtonText = styled.Text`
   /* prettier-ignore */
-  fontSize: 14;
+  fontSize: 15;
   /* prettier-ignore */
   fontWeight: 500;
   color: ${props => props.theme.LIGHT_GRAY};
@@ -42,21 +42,17 @@ function FeedCardBottom() {
   return (
     <Root>
       <Button>
-        <SimpleLineIcons
-          name="bubble"
-          size={ICON_SIZE}
-          color={colors.LIGHT_GRAY}
-        />
+        <SimpleLineIcons name="bubble" size={ICON_SIZE} color={colors.PINK} />
         <ButtonText>{favoriteCount}</ButtonText>
       </Button>
       <Button>
-        <Entypo name="retweet" color={colors.LIGHT_GRAY} size={ICON_SIZE} />
+        <Entypo name="retweet" color={colors.PINK} size={ICON_SIZE} />
         <ButtonText>{favoriteCount}</ButtonText>
       </Button>
       <Button>
         <Entypo
           name="heart"
-          color={isFavorited ? "red" : colors.LIGHT_GRAY}
+          color={isFavorited ? "red" : colors.PINK}
           size={ICON_SIZE}
         />
         <ButtonText>{favoriteCount}</ButtonText>
