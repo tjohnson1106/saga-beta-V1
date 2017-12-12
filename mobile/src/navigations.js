@@ -9,7 +9,7 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import HomeScreen from "./screens/HomeScreen";
 import ExploreScreen from "./screens/ExploreScreen";
-import NotificationsScreen from "./screens/NotificationsScreen";
+import FavoritesScreen from "./screens/FavoritesScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 
@@ -22,7 +22,7 @@ const Tabs = TabNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        headerTitle: "Home",
+        headerTitle: "Saga",
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome size={TAB_ICON_SIZE} color={tintColor} name="home" />
         )
@@ -37,12 +37,16 @@ const Tabs = TabNavigator(
         )
       })
     },
-    Notifications: {
-      screen: NotificationsScreen,
+    Favorites: {
+      screen: FavoritesScreen,
       navigationOptions: () => ({
-        headerTitle: "Notifications",
+        headerTitle: "Favorites",
         tabBarIcon: ({ tintColor }) => (
-          <FontAwesome size={TAB_ICON_SIZE} color={tintColor} name="bell" />
+          <FontAwesome
+            size={TAB_ICON_SIZE}
+            color={tintColor}
+            name="file-video-o"
+          />
         )
       })
     },
@@ -103,9 +107,9 @@ class AppNavigator extends Component {
       state: this.props.nav
     });
     //this is causing the error message Maximun call stack size exceeded
-    if (!this.props.user.isAuthenticated) {
-      return <AuthenticationScreen />;
-    }
+    // if (!this.props.user.isAuthenticated) {
+    //   return <AuthenticationScreen />;
+    // }
     return <AppMainNav navigation={nav} />;
   }
 }

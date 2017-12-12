@@ -5,15 +5,15 @@ const Root = styled.View``;
 
 const T = styled.Text``;
 
-class NotificationsScreen extends Component {
+class FavoritesScreen extends Component {
   state = {};
   render() {
     return (
       <Root>
-        <T>Notification</T>
+        <T>Favorite Feeds</T>
       </Root>
     );
   }
 }
 
-export default NotificationsScreen;
+export default FavoritesScreen;
