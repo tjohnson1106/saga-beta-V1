@@ -2,7 +2,7 @@
   "name": "mobile",
   "version": "0.0.0",
   "description": "Hello Expo!",
-  "author": null,
+  "author": "BF",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {

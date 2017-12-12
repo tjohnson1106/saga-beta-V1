@@ -102,7 +102,7 @@ class AppNavigator extends Component {
       dispatch: this.props.dispatch,
       state: this.props.nav
     });
-
+    //this is causing the error message Maximun call stack size exceeded
     if (!this.props.user.isAuthenticated) {
       return <AuthenticationScreen />;
     }
