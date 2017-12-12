@@ -1,19 +1,24 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
-const TweetSchema = new Schema({
-  text: {
-    type: String,
-    minlength: [5, 'Text need to be longer'],
-    maxlength: [144, 'Text too long'],
+const TweetSchema = new Schema(
+  {
+    text: {
+      type: String,
+      minlength: [5, "Text need to be longer"],
+      maxlength: [144, "Text too long"]
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
+    favoriteCount: {
+      type: Number,
+      default: 0
+    }
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  favoriteCount: {
-    type: Number,
-    default: 0
-  }
-}, { timestamps: true });
+  { timestamps: true }
+);
 
-export default mongoose.model('Tweet', TweetSchema);
+//Tweet = "Saga" data
+
+export default mongoose.model("Tweet", TweetSchema);
