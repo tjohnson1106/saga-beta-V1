@@ -42,17 +42,17 @@ function FeedCardBottom() {
   return (
     <Root>
       <Button>
-        <SimpleLineIcons name="bubble" size={ICON_SIZE} color={colors.PINK} />
+        <SimpleLineIcons name="bubble" size={ICON_SIZE} color={colors.BLUE} />
         <ButtonText>{favoriteCount}</ButtonText>
       </Button>
       <Button>
-        <Entypo name="retweet" color={colors.PINK} size={ICON_SIZE} />
+        <Entypo name="retweet" color={colors.BLUE} size={ICON_SIZE} />
         <ButtonText>{favoriteCount}</ButtonText>
       </Button>
       <Button>
         <Entypo
           name="heart"
-          color={isFavorited ? "red" : colors.PINK}
+          color={isFavorited ? "red" : colors.BLUE}
           size={ICON_SIZE}
         />
         <ButtonText>{favoriteCount}</ButtonText>

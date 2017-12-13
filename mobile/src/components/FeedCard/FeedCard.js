@@ -8,7 +8,7 @@ const Root = styled.View`
 /* prettier-ignore */
   minHeight: 240;
   /* prettier-ignore */
-  backgroundColor: ${props => props.theme.BASE_GRAY};
+  backgroundColor: ${props => props.theme.GRAY_REVISE};
   width: 100%;
   padding: 7px;
   /* prettier-ignore */
