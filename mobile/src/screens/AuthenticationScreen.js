@@ -56,7 +56,8 @@ const ButtonTextContainer = styled.View`
 `;
 
 const Button = styled(Touchable).attrs({
-  feedback: "opacity"
+  feedback: "opacity",
+  hitslop: { top: 20, bottom: 20, right: 20, left: 20 }
 })`
   /* prettier-ignore */
   justifyContent: center;
