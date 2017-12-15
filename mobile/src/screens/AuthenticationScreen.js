@@ -9,7 +9,13 @@ backgroundColor: ${props => props.theme.SECONDARY};
 position: relative;
 `;
 
-const T = styled.Text``;
+const ButtonLoginText = styled.Text`
+  color: ${props => props.theme.WHITE};
+  /* prettier-ignore */
+  fontWeight: bold;
+  /* prettier-ignore */
+  fontSize: 20;
+`;
 
 const ButtonLogin = styled(Touchable).attrs({
   feedback: "opacity"
@@ -25,20 +31,61 @@ const ButtonLogin = styled(Touchable).attrs({
   right: 0;
   /* prettier-ignore */
   borderTopLeftRadius: 20;
-  borderbottomleftradius: 20;
+  /* prettier-ignore */
+  borderBottomLeftRadius: 20;
+  /* prettier-ignore */
+  shadowOpacity: 0.4;
+  /* prettier-ignore */
+  shadowRadius: 5;
+  /* prettier-ignore */
+  shadowOffset: 0px 4px;
+  /* prettier-ignore */
+  shadowColor: #000;
+`;
+
+const ButtonTextContainer = styled.View`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200;
+  /* prettier-ignore */
+  justifyContent: center;
+  /* prettier-ignore */
+  alignItems: center;
+`;
+
+const Button = styled(Touchable).attrs({
+  feedback: "opacity"
+})`
+  /* prettier-ignore */
+  justifyContent: center;
+  /* prettier-ignore */
+  alignItems: center;
+`;
+
+const ButtonText = styled.Text`
+  color: ${props => props.theme.WHITE};
+  /* prettier-ignore */
+  fontWeight: 400;
+  /* prettier-ignore */
+  fontSize: 16;
 `;
 
 const AuthenticationScreen = () => (
   <Root>
     <ButtonLogin>
-      <T>AuthenticationScreen</T>
+      <ButtonLoginText>Get Started</ButtonLoginText>
     </ButtonLogin>
+    <ButtonTextContainer>
+      <Button>
+        <ButtonText>Already have an account?</ButtonText>
+      </Button>
+    </ButtonTextContainer>
   </Root>
 );
 
 export default AuthenticationScreen;
-
-// export default AuthenticationScreen;
 
 // class AuthenticationScreen extends Component {
 //   state = {};
