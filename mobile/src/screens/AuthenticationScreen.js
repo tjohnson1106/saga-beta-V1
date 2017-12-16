@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components/native";
 import Touchable from "@appandflow/touchable";
 
+import SignupForm from "../components/SignupForm";
+
 const Root = styled.View`
 flex: 1;
 /* prettier-ignore */
@@ -9,7 +11,7 @@ backgroundColor: ${props => props.theme.SECONDARY};
 position: relative;
 `;
 
-const ButtonLoginText = styled.Text`
+const ButtonSignupText = styled.Text`
   color: ${props => props.theme.WHITE};
   /* prettier-ignore */
   fontWeight: bold;
@@ -17,7 +19,7 @@ const ButtonLoginText = styled.Text`
   fontSize: 20;
 `;
 
-const ButtonLogin = styled(Touchable).attrs({
+const ButtonSignup = styled(Touchable).attrs({
   feedback: "opacity"
 })`
   height: 75;
@@ -55,9 +57,9 @@ const ButtonTextContainer = styled.View`
   alignItems: center;
 `;
 
-const Button = styled(Touchable).attrs({
+const ButtonLogin = styled(Touchable).attrs({
   feedback: "opacity",
-  hitslop: { top: 20, bottom: 20, right: 20, left: 20 }
+  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 }
 })`
   /* prettier-ignore */
   justifyContent: center;
@@ -65,7 +67,7 @@ const Button = styled(Touchable).attrs({
   alignItems: center;
 `;
 
-const ButtonText = styled.Text`
+const ButtonLoginText = styled.Text`
   color: ${props => props.theme.WHITE};
   /* prettier-ignore */
   fontWeight: 400;
@@ -73,30 +75,61 @@ const ButtonText = styled.Text`
   fontSize: 16;
 `;
 
-const AuthenticationScreen = () => (
-  <Root>
-    <ButtonLogin>
-      <ButtonLoginText>Get Started</ButtonLoginText>
-    </ButtonLogin>
-    <ButtonTextContainer>
-      <Button>
-        <ButtonText>Already have an account?</ButtonText>
-      </Button>
-    </ButtonTextContainer>
-  </Root>
-);
+const initialState = {
+  showSignup: true,
+  showLogin: false
+};
+
+class AuthenticationScreen extends Component {
+  state = initialState;
+
+  _onShowSignupPress = () => this.setState({ showSignup: true });
+
+  _onBackPress = () => this.setState({ ...initialState });
+
+  render() {
+    if (this.state.showSignup) {
+      return (
+        <Root>
+          <SignupForm onBackPress={this._onBackPress} />
+        </Root>
+      );
+    }
+
+    return (
+      <Root>
+        <ButtonSignup onPress={this._onShowSignupPress}>
+          <ButtonSignupText>Get Started</ButtonSignupText>
+        </ButtonSignup>
+        <ButtonTextContainer>
+          <ButtonLogin>
+            <ButtonLoginText>Already have an account?</ButtonLoginText>
+          </ButtonLogin>
+        </ButtonTextContainer>
+      </Root>
+    );
+  }
+}
 
 export default AuthenticationScreen;
 
-// class AuthenticationScreen extends Component {
-//   state = {};
-//   render() {
-//     return (
-//       <Root>
-//         <T>AuthenticationScreen</T>
-//       </Root>
-//     );
-//   }
-// }
+// const AuthenticationScreen = () => (
+//   (state = {
+//     showSignup: false
+//   }),
+//   (
+//     <Root>
+//       <ButtonSignUp>
+//         <ButtonSignUpText>Get Started</ButtonSignUpText>
+//       </ButtonSignUp>
+//       <ButtonTextContainer>
+//         <Button>
+//           <ButtonText>Already have an account?</ButtonText>
+//         </Button>
+//       </ButtonTextContainer>
+//     </Root>
+//   )
+// );
 
 // export default AuthenticationScreen;
+//temp fix for maximum class size exceed error
