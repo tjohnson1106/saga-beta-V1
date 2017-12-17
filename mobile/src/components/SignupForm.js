@@ -4,10 +4,13 @@ import styled from "styled-components/native";
 //temporary and Android Only
 import { MaterialIcons } from "@expo/vector-icons";
 import Touchable from "@appandflow/touchable";
+import { Platform, Keyboard } from "react-native";
 
 import { colors } from "../utils/constants";
 
-const Root = styled.View`
+const Root = styled(Touchable).attrs({
+  feedback: "none"
+})`
   flex: 1;
   position: relative;
 `;
@@ -77,19 +80,51 @@ const InputWrapper = styled.View`
    /* prettier-ignore */
   borderBottomWidth: 1;
    /* prettier-ignore */
-   borderBottomColor: ${props => props.theme.LIGHT_GRAY}
+  borderBottomColor: ${props => props.theme.LIGHT_GRAY};
+  /* prettier-ignore */
+   marginVertical: 5;
+    /* prettier-ignore */
+    /* this puts the cursor to the bottom */
+    justifyContent: flex-end;
+`;
+
+const Input = styled.TextInput.attrs({
+  placeholderTextColor: colors.LIGHT_GRAY,
+  selectionColor: Platform.OS === "ios" ? colors.PRIMARY : undefined,
+  autoCorrect: false
+})`
+  height: 30;
+  width: 100%;
+  color: ${props => props.theme.WHITE};
 `;
 
 class SignupForm extends Component {
   state = {};
+
+  _onOutsidePress = () => Keyboard.dismiss();
+
   render() {
     return (
-      <Root>
+      <Root onPress={this._onOutsidePress}>
         <BackButton onPress={this.props.onBackPress}>
           <MaterialIcons color={colors.WHITE} size={30} name="arrow-back" />
         </BackButton>
         <Wrapper>
-          <InputWrapper />
+          <InputWrapper>
+            <Input
+              placeholder="Full Name(Logo/Design will go here)"
+              autoCapitalize="words"
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Input placeholder="Email" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
+            <Input placeholder="Password" />
+          </InputWrapper>
+          <InputWrapper>
+            <Input placeholder="Username" />
+          </InputWrapper>
         </Wrapper>
         <ButtonConfirm>
           <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
