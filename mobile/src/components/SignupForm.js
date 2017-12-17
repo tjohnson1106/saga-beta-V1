@@ -28,7 +28,8 @@ const Wrapper = styled.View`
 `;
 
 const BackButton = styled(Touchable).attrs({
-  feedback: "opacity"
+  feedback: "opacity",
+  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 }
 })`
   /* prettier-ignore */
   justifyContent: center;
@@ -37,7 +38,9 @@ const BackButton = styled(Touchable).attrs({
   position: absolute;
   top: 5%;
   /* prettier-ignore */
-  marginRight: 8%;
+  left: 5%;
+  /* prettier-ignore */
+  zIndex: 1;
 `;
 
 const ButtonConfirm = styled(Touchable).attrs({
@@ -99,9 +102,24 @@ const Input = styled.TextInput.attrs({
 `;
 
 class SignupForm extends Component {
-  state = {};
+  state = {
+    fullName: "",
+    email: "",
+    password: "",
+    username: ""
+  };
 
   _onOutsidePress = () => Keyboard.dismiss();
+
+  _onChangeText = (text, type) => this.setState({ [text]: type });
+
+  _checkIfDisabled() {
+    const { fullName, email, password, username } = this.setState;
+    if (!fullName || !email || !password || !username) {
+      return true;
+    }
+    return false;
+  }
 
   render() {
     return (
@@ -114,19 +132,32 @@ class SignupForm extends Component {
             <Input
               placeholder="Full Name(Logo/Design will go here)"
               autoCapitalize="words"
+              onChangeText={text => this._onChangeText(text, "fullName")}
             />
           </InputWrapper>
           <InputWrapper>
-            <Input placeholder="Email" keyboardType="email-address" />
+            <Input
+              placeholder="Email"
+              keyboardType="email-address"
+              onChangeText={text => this._onChangeText(text, "email")}
+            />
           </InputWrapper>
           <InputWrapper>
-            <Input placeholder="Password" />
+            <Input
+              placeholder="Password"
+              secureTextEntry
+              onChangeText={text => this._onChangeText(text, "password")}
+            />
           </InputWrapper>
           <InputWrapper>
-            <Input placeholder="Username" />
+            <Input
+              placeholder="Username"
+              autoCapitalize="none"
+              onChangeText={text => this._onChangeText(text, "username")}
+            />
           </InputWrapper>
         </Wrapper>
-        <ButtonConfirm>
+        <ButtonConfirm disabled={this._checkIfDisabled()}>
           <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
         </ButtonConfirm>
       </Root>

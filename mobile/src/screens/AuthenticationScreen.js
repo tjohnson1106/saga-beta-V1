@@ -77,7 +77,7 @@ const ButtonLoginText = styled.Text`
 `;
 
 const initialState = {
-  showSignup: true,
+  showSignup: false,
   showLogin: false
 };
 
