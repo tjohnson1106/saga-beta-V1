@@ -43,6 +43,7 @@ const ButtonSignup = styled(Touchable).attrs({
   shadowOffset: 0px 4px;
   /* prettier-ignore */
   shadowColor: #000;
+  elevation: 2;
 `;
 
 const ButtonTextContainer = styled.View`
