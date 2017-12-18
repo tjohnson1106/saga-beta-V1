@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 //temporary and Android Only
 import { MaterialIcons } from "@expo/vector-icons";
 import Touchable from "@appandflow/touchable";
-import { Platform, Keyboard } from "react-native";
+import { Platform, Keyboard, AsyncStorage } from "react-native";
 import { graphql } from "react-apollo";
 
 import { colors, fakeAvatar } from "../utils/constants";
@@ -113,10 +113,11 @@ class SignupForm extends Component {
 
   _onOutsidePress = () => Keyboard.dismiss();
 
-  _onChangeText = (text, type) => this.setState({ [text]: type });
+  _onChangeText = (text, type) => this.setState({ [type]: text });
 
   _checkIfDisabled() {
     const { fullName, email, password, username } = this.setState;
+
     if (!fullName || !email || !password || !username) {
       return true;
     }
@@ -127,7 +128,7 @@ class SignupForm extends Component {
     const { fullName, email, password, username } = this.state;
     const avatar = fakeAvatar;
 
-    const { data } = this.props.mutate({
+    const { data } = await this.props.mutate({
       variables: {
         fullName,
         email,
@@ -136,9 +137,12 @@ class SignupForm extends Component {
         avatar
       }
     });
-    console.log("============================");
-    console.log(data);
-    console.log("============================");
+
+    try {
+      await AsyncStorage.setItem("@sagamobileapp", data.signup.token);
+    } catch (error) {
+      throw error;
+    }
   };
 
   render() {
@@ -158,6 +162,7 @@ class SignupForm extends Component {
           <InputWrapper>
             <Input
               placeholder="Email"
+              autoCapitalize="none"
               keyboardType="email-address"
               onChangeText={text => this._onChangeText(text, "email")}
             />
@@ -178,7 +183,7 @@ class SignupForm extends Component {
           </InputWrapper>
         </Wrapper>
         <ButtonConfirm
-          disabled={this._checkIfDisabled()}
+          // disabled={this._checkIfDisabled()}
           onPress={this._onSignupPress}
         >
           <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>

@@ -9,14 +9,13 @@ export default gql`
     $avatar: String!
   ) {
     signup(
-        fullName: $fullName
-        email: $email
-        password: $password
-        username: $username
-        avatar: $avatar
-        
-                ) {
-                    token
-                }
+      fullName: $fullName
+      email: $email
+      password: $password
+      username: $username
+      avatar: $avatar
+    ) {
+      token
+    }
   }
 `;
