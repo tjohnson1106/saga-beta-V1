@@ -10,6 +10,8 @@ import { graphql } from "react-apollo";
 import { colors, fakeAvatar } from "../utils/constants";
 import SIGNUP_MUTATION from "../graphql/mutations/signup";
 
+import Loading from "../components/Loading";
+
 const Root = styled(Touchable).attrs({
   feedback: "none"
 })`
@@ -108,7 +110,8 @@ class SignupForm extends Component {
     fullName: "",
     email: "",
     password: "",
-    username: ""
+    username: "",
+    loading: false
   };
 
   _onOutsidePress = () => Keyboard.dismiss();
@@ -125,6 +128,7 @@ class SignupForm extends Component {
   }
 
   _onSignupPress = async () => {
+    this.setState({ loading: true });
     const { fullName, email, password, username } = this.state;
     const avatar = fakeAvatar;
 
@@ -140,12 +144,16 @@ class SignupForm extends Component {
 
     try {
       await AsyncStorage.setItem("@sagamobileapp", data.signup.token);
+      return this.setState({ loading: false });
     } catch (error) {
       throw error;
     }
   };
 
   render() {
+    if (this.state.loading) {
+      return <Loading />;
+    }
     return (
       <Root onPress={this._onOutsidePress}>
         <BackButton onPress={this.props.onBackPress}>
