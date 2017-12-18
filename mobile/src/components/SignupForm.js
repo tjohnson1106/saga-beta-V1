@@ -5,8 +5,10 @@ import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Touchable from "@appandflow/touchable";
 import { Platform, Keyboard } from "react-native";
+import { graphql } from "react-apollo";
 
-import { colors } from "../utils/constants";
+import { colors, fakeAvatar } from "../utils/constants";
+import SIGNUP_MUTATION from "../graphql/mutations/signup";
 
 const Root = styled(Touchable).attrs({
   feedback: "none"
@@ -121,6 +123,24 @@ class SignupForm extends Component {
     return false;
   }
 
+  _onSignupPress = async () => {
+    const { fullName, email, password, username } = this.state;
+    const avatar = fakeAvatar;
+
+    const { data } = this.props.mutate({
+      variables: {
+        fullName,
+        email,
+        password,
+        username,
+        avatar
+      }
+    });
+    console.log("============================");
+    console.log(data);
+    console.log("============================");
+  };
+
   render() {
     return (
       <Root onPress={this._onOutsidePress}>
@@ -157,7 +177,10 @@ class SignupForm extends Component {
             />
           </InputWrapper>
         </Wrapper>
-        <ButtonConfirm disabled={this._checkIfDisabled()}>
+        <ButtonConfirm
+          disabled={this._checkIfDisabled()}
+          onPress={this._onSignupPress}
+        >
           <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
         </ButtonConfirm>
       </Root>
@@ -165,4 +188,4 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm;
+export default graphql(SIGNUP_MUTATION)(SignupForm);
