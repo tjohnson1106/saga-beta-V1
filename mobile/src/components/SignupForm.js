@@ -5,12 +5,14 @@ import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Touchable from "@appandflow/touchable";
 import { Platform, Keyboard, AsyncStorage } from "react-native";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { connect } from "react-redux";
 
 import { colors, fakeAvatar } from "../utils/constants";
 import SIGNUP_MUTATION from "../graphql/mutations/signup";
 
 import Loading from "../components/Loading";
+import { login } from "../actions/user";
 
 const Root = styled(Touchable).attrs({
   feedback: "none"
@@ -132,19 +134,20 @@ class SignupForm extends Component {
     const { fullName, email, password, username } = this.state;
     const avatar = fakeAvatar;
 
-    const { data } = await this.props.mutate({
-      variables: {
-        fullName,
-        email,
-        password,
-        username,
-        avatar
-      }
-    });
-
     try {
+      const { data } = await this.props.mutate({
+        variables: {
+          fullName,
+          email,
+          password,
+          username,
+          avatar
+        }
+      });
+
       await AsyncStorage.setItem("@sagamobileapp", data.signup.token);
-      return this.setState({ loading: false });
+      this.setState({ loading: false });
+      return this.props.login();
     } catch (error) {
       throw error;
     }
@@ -201,4 +204,6 @@ class SignupForm extends Component {
   }
 }
 
-export default graphql(SIGNUP_MUTATION)(SignupForm);
+export default compose(graphql(SIGNUP_MUTATION), connect(undefined, { login }))(
+  SignupForm
+);
