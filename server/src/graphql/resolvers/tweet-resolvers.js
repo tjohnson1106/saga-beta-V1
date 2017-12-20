@@ -12,6 +12,7 @@ export default {
   },
   getTweets: async (_, args, { user }) => {
     try {
+      // re-added after adding login check client side
       // await requireAuth(user);
       return Tweet.find({}).sort({ createdAt: -1 });
     } catch (error) {

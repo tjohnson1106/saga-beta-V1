@@ -73,8 +73,6 @@ const ButtonConfirm = styled(Touchable).attrs({
   /* prettier-ignore */
   shadowOffset 0px 2px;
   elevation: 2;
-
-
 `;
 
 const ButtonConfirmText = styled.Text`
@@ -121,16 +119,18 @@ class SignupForm extends Component {
   _onChangeText = (text, type) => this.setState({ [type]: text });
 
   _checkIfDisabled() {
-    const { fullName, email, password, username } = this.setState;
+    const { fullName, email, password, username } = this.state;
 
     if (!fullName || !email || !password || !username) {
       return true;
     }
+
     return false;
   }
 
   _onSignupPress = async () => {
     this.setState({ loading: true });
+
     const { fullName, email, password, username } = this.state;
     const avatar = fakeAvatar;
 
@@ -144,8 +144,7 @@ class SignupForm extends Component {
           avatar
         }
       });
-
-      await AsyncStorage.setItem("@sagamobileapp", data.signup.token);
+      await AsyncStorage.setItem("@twitteryoutubeclone", data.signup.token);
       this.setState({ loading: false });
       return this.props.login();
     } catch (error) {
@@ -165,7 +164,7 @@ class SignupForm extends Component {
         <Wrapper>
           <InputWrapper>
             <Input
-              placeholder="Full Name(Logo/Design will go here)"
+              placeholder="Full Name"
               autoCapitalize="words"
               onChangeText={text => this._onChangeText(text, "fullName")}
             />
@@ -194,10 +193,10 @@ class SignupForm extends Component {
           </InputWrapper>
         </Wrapper>
         <ButtonConfirm
-          // disabled={this._checkIfDisabled()}
           onPress={this._onSignupPress}
+          disabled={this._checkIfDisabled()}
         >
-          <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
+          <ButtonConfirmText>Sign Up</ButtonConfirmText>
         </ButtonConfirm>
       </Root>
     );
