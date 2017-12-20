@@ -5,12 +5,14 @@ import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Touchable from "@appandflow/touchable";
 import { Platform, Keyboard, AsyncStorage } from "react-native";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { connect } from "react-redux";
 
 import { colors, fakeAvatar } from "../utils/constants";
 import SIGNUP_MUTATION from "../graphql/mutations/signup";
 
 import Loading from "../components/Loading";
+import { login } from "../actions/user";
 
 const Root = styled(Touchable).attrs({
   feedback: "none"
@@ -71,8 +73,6 @@ const ButtonConfirm = styled(Touchable).attrs({
   /* prettier-ignore */
   shadowOffset 0px 2px;
   elevation: 2;
-
-
 `;
 
 const ButtonConfirmText = styled.Text`
@@ -119,32 +119,34 @@ class SignupForm extends Component {
   _onChangeText = (text, type) => this.setState({ [type]: text });
 
   _checkIfDisabled() {
-    const { fullName, email, password, username } = this.setState;
+    const { fullName, email, password, username } = this.state;
 
     if (!fullName || !email || !password || !username) {
       return true;
     }
+
     return false;
   }
 
   _onSignupPress = async () => {
     this.setState({ loading: true });
+
     const { fullName, email, password, username } = this.state;
     const avatar = fakeAvatar;
 
-    const { data } = await this.props.mutate({
-      variables: {
-        fullName,
-        email,
-        password,
-        username,
-        avatar
-      }
-    });
-
     try {
-      await AsyncStorage.setItem("@sagamobileapp", data.signup.token);
-      return this.setState({ loading: false });
+      const { data } = await this.props.mutate({
+        variables: {
+          fullName,
+          email,
+          password,
+          username,
+          avatar
+        }
+      });
+      await AsyncStorage.setItem("@twitteryoutubeclone", data.signup.token);
+      this.setState({ loading: false });
+      return this.props.login();
     } catch (error) {
       throw error;
     }
@@ -162,7 +164,7 @@ class SignupForm extends Component {
         <Wrapper>
           <InputWrapper>
             <Input
-              placeholder="Full Name(Logo/Design will go here)"
+              placeholder="Full Name"
               autoCapitalize="words"
               onChangeText={text => this._onChangeText(text, "fullName")}
             />
@@ -191,14 +193,16 @@ class SignupForm extends Component {
           </InputWrapper>
         </Wrapper>
         <ButtonConfirm
-          // disabled={this._checkIfDisabled()}
           onPress={this._onSignupPress}
+          disabled={this._checkIfDisabled()}
         >
-          <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
+          <ButtonConfirmText>Sign Up</ButtonConfirmText>
         </ButtonConfirm>
       </Root>
     );
   }
 }
 
-export default graphql(SIGNUP_MUTATION)(SignupForm);
+export default compose(graphql(SIGNUP_MUTATION), connect(undefined, { login }))(
+  SignupForm
+);
