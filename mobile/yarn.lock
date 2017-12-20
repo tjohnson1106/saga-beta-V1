@@ -6,6 +6,12 @@
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@appandflow/touchable/-/touchable-1.2.2.tgz#134b6353e5ec98c5d6937116aa79dfede20166e1"
 
+"@expo/react-native-action-sheet@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@expo/react-native-action-sheet/-/react-native-action-sheet-0.4.0.tgz#a16e434fdc2e3e8c71c62ac4d9e34b020044dba7"
+  dependencies:
+    hoist-non-react-statics "^1.2.0"
+
 "@expo/vector-icons@^5.0.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-5.2.0.tgz#877f75c00bf21313cdb231c92cbcfd40e46ee2a1"

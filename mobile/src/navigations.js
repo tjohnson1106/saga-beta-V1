@@ -13,6 +13,7 @@ import FavoritesScreen from "./screens/FavoritesScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 
+import HeaderAvatar from "./components/HeaderAvatar";
 import { colors } from "./utils/constants";
 
 const TAB_ICON_SIZE = 20;
@@ -81,7 +82,10 @@ const Tabs = TabNavigator(
 const AppMainNav = StackNavigator(
   {
     Home: {
-      screen: Tabs
+      screen: Tabs,
+      navigationOptions: () => ({
+        headerLeft: <HeaderAvatar />
+      })
     }
   },
   {

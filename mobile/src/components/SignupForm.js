@@ -196,7 +196,7 @@ class SignupForm extends Component {
           onPress={this._onSignupPress}
           disabled={this._checkIfDisabled()}
         >
-          <ButtonConfirmText>Sign Up</ButtonConfirmText>
+          <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
         </ButtonConfirm>
       </Root>
     );
