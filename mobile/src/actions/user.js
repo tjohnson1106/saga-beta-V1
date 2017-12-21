@@ -10,3 +10,9 @@ export function getUserInfo(info) {
     info
   };
 }
+
+export function logout() {
+  return {
+    type: "LOGOUT"
+  };
+}
