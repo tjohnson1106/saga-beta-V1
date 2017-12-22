@@ -8,6 +8,7 @@ import { withApollo } from "react-apollo";
 import { logout } from "../actions/user";
 
 import Loading from "./Loading";
+import AddDataButtonHeader from "./AddDataButtonHeader";
 
 const AVATAR_SIZE = 30;
 const AVATAR_RADIUS = AVATAR_SIZE / 2;
@@ -50,20 +51,19 @@ class HeaderAvatar extends Component {
     );
   };
 
-  state = {};
   render() {
     //if no info/info is nill
     if (!this.props.info) {
       return (
-        <Button disabled>
+        <AddDataButtonHeader side="left" disabled>
           <Loading size="small" />
-        </Button>
+        </AddDataButtonHeader>
       );
     }
     return (
-      <Button>
+      <AddDataButtonHeader side="left">
         <Avatar source={{ uri: this.props.info.avatar }} />
-      </Button>
+      </AddDataButtonHeader>
     );
   }
 }
