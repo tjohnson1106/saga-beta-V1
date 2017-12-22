@@ -144,7 +144,7 @@ class SignupForm extends Component {
           avatar
         }
       });
-      await AsyncStorage.setItem("@twitteryoutubeclone", data.signup.token);
+      await AsyncStorage.setItem("@sagamobileapp", data.signup.token);
       this.setState({ loading: false });
       return this.props.login();
     } catch (error) {

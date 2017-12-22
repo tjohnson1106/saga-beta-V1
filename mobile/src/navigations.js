@@ -6,6 +6,7 @@ import {
 } from "react-navigation";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
+import { Image } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
 import ExploreScreen from "./screens/ExploreScreen";
@@ -14,7 +15,9 @@ import ProfileScreen from "./screens/ProfileScreen";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 
 import HeaderAvatar from "./components/HeaderAvatar";
+import AddDataButtonHeader from "./components/AddDataButtonHeader";
 import { colors } from "./utils/constants";
+// import addIcon from "../assets/icons/";
 
 const TAB_ICON_SIZE = 20;
 
@@ -84,7 +87,16 @@ const AppMainNav = StackNavigator(
     Home: {
       screen: Tabs,
       navigationOptions: () => ({
-        headerLeft: <HeaderAvatar />
+        headerLeft: <HeaderAvatar />,
+        headerRight: (
+          <AddDataButtonHeader side="right">
+            <Image
+              source={require("../assets/icons/add-icon.png")}
+              size={20}
+              name="plus"
+            />
+          </AddDataButtonHeader>
+        )
       })
     }
   },
