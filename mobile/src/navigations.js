@@ -5,7 +5,7 @@ import {
   TabNavigator
 } from "react-navigation";
 import { connect } from "react-redux";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, EvilIcons } from "@expo/vector-icons";
 import { Image } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
@@ -13,10 +13,12 @@ import ExploreScreen from "./screens/ExploreScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
+import NewDataScreen from "./screens/NewDataScreen";
 
 import HeaderAvatar from "./components/HeaderAvatar";
 import AddDataButtonHeader from "./components/AddDataButtonHeader";
 import { colors } from "./utils/constants";
+import navigation from "./reducers/navigation";
 // import addIcon from "../assets/icons/";
 
 const TAB_ICON_SIZE = 20;
@@ -82,14 +84,39 @@ const Tabs = TabNavigator(
   }
 );
 
+const NewDataModal = StackNavigator(
+  {
+    NewData: {
+      screen: NewDataScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <HeaderAvatar />,
+        headerRight: (
+          <AddDataButtonHeader
+            side="right"
+            onPress={() => navigation.goBack(null)}
+          >
+            <EvilIcons colors={colors.PRIMARY} size={25} name="close" />
+          </AddDataButtonHeader>
+        )
+      })
+    }
+  },
+  {
+    headerMode: "none"
+  }
+);
+
 const AppMainNav = StackNavigator(
   {
     Home: {
       screen: Tabs,
-      navigationOptions: () => ({
+      navigationOptions: ({ navigation }) => ({
         headerLeft: <HeaderAvatar />,
         headerRight: (
-          <AddDataButtonHeader side="right">
+          <AddDataButtonHeader
+            side="right"
+            onPress={() => navigation.navigate("NewData")}
+          >
             <Image
               source={require("../assets/icons/add-icon.png")}
               size={20}
@@ -98,6 +125,9 @@ const AppMainNav = StackNavigator(
           </AddDataButtonHeader>
         )
       })
+    },
+    NewData: {
+      screen: NewDataModal
     }
   },
   {
