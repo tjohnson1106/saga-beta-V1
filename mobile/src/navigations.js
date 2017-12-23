@@ -5,7 +5,7 @@ import {
   TabNavigator
 } from "react-navigation";
 import { connect } from "react-redux";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, EvilIcons } from "@expo/vector-icons";
 import { Image } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
@@ -87,7 +87,18 @@ const Tabs = TabNavigator(
 const NewDataModal = StackNavigator(
   {
     NewData: {
-      screen: NewDataScreen
+      screen: NewDataScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <HeaderAvatar />,
+        headerRight: (
+          <AddDataButtonHeader
+            side="right"
+            onPress={() => navigation.goBack(null)}
+          >
+            <EvilIcons colors={colors.PRIMARY} size={25} name="close" />
+          </AddDataButtonHeader>
+        )
+      })
     }
   },
   {
