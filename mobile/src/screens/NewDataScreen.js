@@ -7,7 +7,7 @@ import Touchable from "@appandflow/touchable";
 import { graphql } from "react-apollo";
 
 import { colors } from "../utils/constants";
-import CREATE_NEW_DATA from "../graphql/mutations/CreateNewData";
+import CREATE_NEW_DATA_MUTATION from "../graphql/mutations/CreateNewData";
 
 const Root = styled.View`
   /* prettier-ignore */
@@ -82,8 +82,21 @@ class NewDataScreen extends Component {
 
   _onChangeText = text => this.setState({ text });
 
+  _onCreateNewDataPress = async () => {
+    await this.props.mutate({
+      //still to implement: state will depend on image video content
+      variables: {
+        text: this.state.text
+      }
+    });
+  };
+
   get _textLength() {
     return 140 - this.state.text.length;
+  }
+
+  get _buttonDisabled() {
+    return this.state.text.length < 5;
   }
 
   render() {
@@ -92,7 +105,7 @@ class NewDataScreen extends Component {
         <Wrapper>
           <Input value={this.state.text} onChangeText={this._onChangeText} />
           <TextLength>{this._textLength}</TextLength>
-          <NewDataButton>
+          <NewDataButton onPress={this._onCreateNewDataPress}>
             <NewDataButtonText>Share Your Story</NewDataButtonText>
           </NewDataButton>
         </Wrapper>
@@ -101,4 +114,4 @@ class NewDataScreen extends Component {
   }
 }
 
-export default NewDataScreen;
+export default graphql(CREATE_NEW_DATA_MUTATION)(NewDataScreen);
