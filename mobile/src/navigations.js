@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 import { connect } from "react-redux";
 import { FontAwesome, EvilIcons } from "@expo/vector-icons";
-import { Image } from "react-native";
+import { Image, Keyboard } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
 import ExploreScreen from "./screens/ExploreScreen";
@@ -93,7 +93,10 @@ const NewDataModal = StackNavigator(
         headerRight: (
           <AddDataButtonHeader
             side="right"
-            onPress={() => navigation.goBack(null)}
+            onPress={() => {
+              Keyboard.dismiss();
+              navigation.goBack(null);
+            }}
           >
             <EvilIcons colors={colors.PRIMARY} size={25} name="close" />
           </AddDataButtonHeader>

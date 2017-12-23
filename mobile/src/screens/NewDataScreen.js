@@ -3,9 +3,11 @@
 import React, { Component } from "react";
 import styled from "styled-components/native";
 import { Platform } from "react-native";
+import Touchable from "@appandflow/touchable";
+import { graphql } from "react-apollo";
 
 import { colors } from "../utils/constants";
-import Touchable from "@appandflow/touchable";
+import CREATE_NEW_DATA from "../graphql/mutations/CreateNewData";
 
 const Root = styled.View`
   /* prettier-ignore */
