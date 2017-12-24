@@ -85,6 +85,7 @@ class NewDataScreen extends Component {
   _onChangeText = text => this.setState({ text });
 
   _onCreateNewDataPress = async () => {
+    //refer to __typename "User"
     const { user } = this.props;
 
     await this.props.mutate({
@@ -103,13 +104,19 @@ class NewDataScreen extends Component {
           user: {
             __typename: "User",
             username: user.username,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            avatar: this.avatar
+            firstName: user.firstName,
+            lastName: user.lastName,
+            avatar: user.avatar
           }
         },
         update: (store, { data: { createTweet } }) => {
           const data = store.readQuery({ query: GET_TWEETS_QUERY });
+          if (!data.getTweets.find(t => t._id === createTweet._id)) {
+            store.writeQuery({
+              query: GET_TWEETS_QUERY,
+              data: { getTweets: [{ ...createTweet }, ...data.getTweets] }
+            });
+          }
         }
       }
     });
