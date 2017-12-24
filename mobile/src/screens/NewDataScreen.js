@@ -2,9 +2,10 @@
 
 import React, { Component } from "react";
 import styled from "styled-components/native";
-import { Platform } from "react-native";
+import { Platform, Keyboard } from "react-native";
 import Touchable from "@appandflow/touchable";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { connect } from "react-redux";
 
 import { colors } from "../utils/constants";
 import CREATE_NEW_DATA_MUTATION from "../graphql/mutations/CreateNewData";
@@ -87,8 +88,24 @@ class NewDataScreen extends Component {
       //still to implement: state will depend on image video content
       variables: {
         text: this.state.text
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        createTweet: {
+          __typename: "Tweet",
+          text: this.state.text,
+          favoriteCount: 0,
+          _id: Math.round(Math.random() * 10000000),
+          createdAt: new Date(),
+          user: {
+            __typename: "User",
+            username: this.props.user.username
+          }
+        }
       }
     });
+    Keyboard.dismiss();
+    this.props.navigation.goBack(null);
   };
 
   get _textLength() {
@@ -114,4 +131,8 @@ class NewDataScreen extends Component {
   }
 }
 
-export default graphql(CREATE_NEW_DATA_MUTATION)(NewDataScreen);
+export default compose(
+  graphql(CREATE_NEW_DATA_MUTATION),
+  //map state to props
+  connect(state => ({ user: state.user.info }))
+)(NewDataScreen);
