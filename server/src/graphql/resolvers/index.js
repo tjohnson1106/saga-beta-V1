@@ -1,13 +1,13 @@
-import GraphQLDate from 'graphql-date';
+import GraphQLDate from "graphql-date";
 
-import TweetResolvers from './tweet-resolvers';
-import UserResolvers from './user-resolvers';
-import User from '../../models/User';
+import TweetResolvers from "./tweet-resolvers";
+import UserResolvers from "./user-resolvers";
+import User from "../../models/User";
 
 export default {
   Date: GraphQLDate,
   Tweet: {
-    user: ({ user }) => User.findById(user),
+    user: ({ user }) => User.findById(user)
   },
   Query: {
     getTweet: TweetResolvers.getTweet,
@@ -21,5 +21,8 @@ export default {
     deleteTweet: TweetResolvers.deleteTweet,
     signup: UserResolvers.signup,
     login: UserResolvers.login
+  },
+  Subscription: {
+    tweetAdded: TweetResolvers.tweetAdded
   }
 };
