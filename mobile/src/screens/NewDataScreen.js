@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 
 import { colors } from "../utils/constants";
 import CREATE_NEW_DATA_MUTATION from "../graphql/mutations/CreateNewData";
+import GET_TWEETS_QUERY from "../graphql/queries/getTweets";
 
 const Root = styled.View`
   /* prettier-ignore */
@@ -84,6 +85,8 @@ class NewDataScreen extends Component {
   _onChangeText = text => this.setState({ text });
 
   _onCreateNewDataPress = async () => {
+    const { user } = this.props;
+
     await this.props.mutate({
       //still to implement: state will depend on image video content
       variables: {
@@ -99,8 +102,14 @@ class NewDataScreen extends Component {
           createdAt: new Date(),
           user: {
             __typename: "User",
-            username: this.props.user.username
+            username: user.username,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            avatar: this.avatar
           }
+        },
+        update: (store, { data: { createTweet } }) => {
+          const data = store.readQuery({ query: GET_TWEETS_QUERY });
         }
       }
     });
