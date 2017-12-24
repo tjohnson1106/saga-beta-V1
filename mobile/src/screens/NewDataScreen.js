@@ -2,12 +2,13 @@
 
 import React, { Component } from "react";
 import styled from "styled-components/native";
-import { Platform } from "react-native";
+import { Platform, Keyboard } from "react-native";
 import Touchable from "@appandflow/touchable";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { connect } from "react-redux";
 
 import { colors } from "../utils/constants";
-import CREATE_NEW_DATA from "../graphql/mutations/CreateNewData";
+import CREATE_NEW_DATA_MUTATION from "../graphql/mutations/CreateNewData";
 
 const Root = styled.View`
   /* prettier-ignore */
@@ -82,8 +83,37 @@ class NewDataScreen extends Component {
 
   _onChangeText = text => this.setState({ text });
 
+  _onCreateNewDataPress = async () => {
+    await this.props.mutate({
+      //still to implement: state will depend on image video content
+      variables: {
+        text: this.state.text
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        createTweet: {
+          __typename: "Tweet",
+          text: this.state.text,
+          favoriteCount: 0,
+          _id: Math.round(Math.random() * 10000000),
+          createdAt: new Date(),
+          user: {
+            __typename: "User",
+            username: this.props.user.username
+          }
+        }
+      }
+    });
+    Keyboard.dismiss();
+    this.props.navigation.goBack(null);
+  };
+
   get _textLength() {
     return 140 - this.state.text.length;
+  }
+
+  get _buttonDisabled() {
+    return this.state.text.length < 5;
   }
 
   render() {
@@ -92,7 +122,7 @@ class NewDataScreen extends Component {
         <Wrapper>
           <Input value={this.state.text} onChangeText={this._onChangeText} />
           <TextLength>{this._textLength}</TextLength>
-          <NewDataButton>
+          <NewDataButton onPress={this._onCreateNewDataPress}>
             <NewDataButtonText>Share Your Story</NewDataButtonText>
           </NewDataButton>
         </Wrapper>
@@ -101,4 +131,8 @@ class NewDataScreen extends Component {
   }
 }
 
-export default NewDataScreen;
+export default compose(
+  graphql(CREATE_NEW_DATA_MUTATION),
+  //map state to props
+  connect(state => ({ user: state.user.info }))
+)(NewDataScreen);
