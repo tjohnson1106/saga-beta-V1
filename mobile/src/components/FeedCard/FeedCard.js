@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
+import { graphql } from "react-apollo";
 
 import FeedCardHeader from "./FeedCardHeader";
 import FeedCardBottom from "./FeedCardBottom";
+import FAVORITE_TWEET_MUTATION from "../../graphql/mutations/favoriteData";
 
 const Root = styled.View`
 /* prettier-ignore */
@@ -50,4 +52,12 @@ function FeedCard({ text, user, createdAt, favoriteCount }) {
   );
 }
 
-export default FeedCard;
+export default (FAVORITE_TWEET_MUTATION,
+{
+  props: ({ ownProps, mutate }) => ({
+    favorite: () =>
+      mutate({
+        variables: { _id: ownProps._id }
+      })
+  })
+})(FeedCard);

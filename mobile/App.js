@@ -21,6 +21,8 @@ export default class App extends React.Component {
   };
 
   componentWillMount() {
+    //manually removes Auth to return to login
+    // AsyncStorage.removeItem("@sagamobileapp");
     this._checkIfToken();
   }
 
