@@ -1,14 +1,16 @@
-import User from '../../models/User';
-import { requireAuth } from '../../services/auth';
+import User from "../../models/User";
+import FavoriteTweet from "../../models/favoriteData";
+import { requireAuth } from "../../services/auth";
 
 export default {
   signup: async (_, { fullName, ...rest }) => {
     try {
-      const [firstName, ...lastName] = fullName.split(' ');
+      const [firstName, ...lastName] = fullName.split(" ");
       const user = await User.create({ firstName, lastName, ...rest });
+      await FavoriteTweet.create({ userId: user._id });
 
       return {
-        token: user.createToken(),
+        token: user.createToken()
       };
     } catch (error) {
       throw error;
@@ -20,11 +22,11 @@ export default {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new Error('User not exist!');
+        throw new Error("User not exist!");
       }
 
       if (!user.authenticateUser(password)) {
-        throw new Error('Password not match!');
+        throw new Error("Password not match!");
       }
 
       return {
@@ -43,5 +45,5 @@ export default {
     } catch (error) {
       throw error;
     }
-  },
+  }
 };

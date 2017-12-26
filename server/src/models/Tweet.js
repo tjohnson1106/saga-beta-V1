@@ -19,6 +19,23 @@ const TweetSchema = new Schema(
   { timestamps: true }
 );
 
+TweetSchema.statics = {
+  incFavoriteCount(tweetId) {
+    return this.findByIdAndUpdate(
+      tweetId,
+      { $inc: { favoriteCount: 1 } },
+      { new: true }
+    );
+  },
+  decFavoriteCount(tweetId) {
+    return this.findByIdAndUpdate(
+      tweetId,
+      { $inc: { favoriteCount: -1 } },
+      { new: true }
+    );
+  }
+};
+
 //Tweet = "Saga" data
 
 export default mongoose.model("Tweet", TweetSchema);

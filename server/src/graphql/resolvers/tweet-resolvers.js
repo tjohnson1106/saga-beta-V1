@@ -1,4 +1,5 @@
 import Tweet from "../../models/Tweet";
+import FavoriteTweet from "../../models/favoriteData";
 import { requireAuth } from "../../services/auth";
 import { pubsub } from "../../config/pubsub";
 
@@ -71,6 +72,39 @@ export default {
       await tweet.remove();
       return {
         message: "Delete Success!"
+      };
+    } catch (error) {
+      throw error;
+    }
+  },
+  favoriteTweet: async (_, { _id }, { user }) => {
+    try {
+      await requireAuth(user);
+      const favorites = await FavoriteTweet.findOne({ userId: user._id });
+
+      // binary logic
+      if (favorites.tweets.some(t => t.equals(_id))) {
+        favorites.tweets.pull(_id);
+        await favorites.save();
+
+        const tweet = await Tweet.decFavoriteCount(_id);
+        const t = tweet.toJSON();
+
+        return {
+          isFavorited: false,
+          ...t
+        };
+      }
+
+      const tweet = await Tweet.incFavoriteCount(_id);
+
+      const t = tweet.toJSON();
+
+      favorites.tweets.push(_id);
+      await favorites.save();
+      return {
+        isFavorited: true,
+        ...t
       };
     } catch (error) {
       throw error;
