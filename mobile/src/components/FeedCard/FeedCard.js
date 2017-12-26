@@ -55,8 +55,7 @@ function FeedCard({ text, user, createdAt, favoriteCount, favorite }) {
   );
 }
 
-export default (FAVORITE_TWEET_MUTATION,
-{
+export default graphql(FAVORITE_TWEET_MUTATION, {
   props: ({ ownProps, mutate }) => ({
     favorite: () =>
       mutate({

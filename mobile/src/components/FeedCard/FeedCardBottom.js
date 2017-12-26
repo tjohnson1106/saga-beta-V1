@@ -38,7 +38,7 @@ const ButtonText = styled.Text`
 const favoriteCount = 3;
 const isFavorited = false;
 
-function FeedCardBottom() {
+function FeedCardBottom({ favoriteCount, onFavoritePress }) {
   return (
     <Root>
       <Button>
@@ -49,7 +49,7 @@ function FeedCardBottom() {
         <Entypo name="retweet" color={colors.BLUE} size={ICON_SIZE} />
         <ButtonText>{favoriteCount}</ButtonText>
       </Button>
-      <Button>
+      <Button onPress={onFavoritePress}>
         <Entypo
           name="heart"
           color={isFavorited ? "red" : colors.BLUE}
