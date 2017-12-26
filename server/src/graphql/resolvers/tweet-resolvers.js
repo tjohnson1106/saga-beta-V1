@@ -82,30 +82,7 @@ export default {
       await requireAuth(user);
       const favorites = await FavoriteTweet.findOne({ userId: user._id });
 
-      // binary logic
-      if (favorites.tweets.some(t => t.equals(_id))) {
-        favorites.tweets.pull(_id);
-        await favorites.save();
-
-        const tweet = await Tweet.decFavoriteCount(_id);
-        const t = tweet.toJSON();
-
-        return {
-          isFavorited: false,
-          ...t
-        };
-      }
-
-      const tweet = await Tweet.incFavoriteCount(_id);
-
-      const t = tweet.toJSON();
-
-      favorites.tweets.push(_id);
-      await favorites.save();
-      return {
-        isFavorited: true,
-        ...t
-      };
+      return favorites.userFavoritedTweet(_id);
     } catch (error) {
       throw error;
     }
