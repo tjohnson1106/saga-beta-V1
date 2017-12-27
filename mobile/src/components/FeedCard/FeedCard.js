@@ -40,7 +40,14 @@ const CardContentText = styled.Text`
   color: ${props => props.theme.PINK};
 `;
 
-function FeedCard({ text, user, createdAt, favoriteCount, favorite }) {
+function FeedCard({
+  text,
+  user,
+  createdAt,
+  favoriteCount,
+  favorite,
+  isFavorited
+}) {
   return (
     <Root>
       <FeedCardHeader {...user} createdAt={createdAt} />
@@ -50,6 +57,7 @@ function FeedCard({ text, user, createdAt, favoriteCount, favorite }) {
       <FeedCardBottom
         favoriteCount={favoriteCount}
         onFavoritePress={favorite}
+        isFavorited={isFavorited}
       />
     </Root>
   );
