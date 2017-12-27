@@ -5,6 +5,8 @@ import { pubsub } from "../../config/pubsub";
 
 const TWEET_ADDED = "tweetAdded";
 
+export const TWEET_FAVORITED = "tweetFavorited";
+
 export default {
   getTweet: async (_, { _id }, { user }) => {
     try {
@@ -16,6 +18,7 @@ export default {
   },
   getTweets: async (_, args, { user }) => {
     try {
+      //This is causing 'unhandled in react-apollo' error
       // await requireAuth(user);
 
       const p1 = Tweet.find({}).sort({ createdAt: -1 });
@@ -111,5 +114,6 @@ export default {
   },
   tweetAdded: {
     subscribe: () => pubsub.asyncIterator(TWEET_ADDED)
-  }
+  },
+  tweetFavorited: () => pubsub.asyncIterator(TWEET_FAVORITED)
 };
