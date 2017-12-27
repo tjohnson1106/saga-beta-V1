@@ -44,24 +44,24 @@ app.use(
 
 const graphQLServer = createServer(app);
 
-// mocks().then(() => {
-graphQLServer.listen(constants.PORT, err => {
-  if (err) {
-    console.error(err);
-  } else {
-    new SubscriptionServer(
-      {
-        // eslint-disable-line
-        schema,
-        execute,
-        subscribe
-      },
-      {
-        server: graphQLServer,
-        path: constants.SUBSCRIPTIONS_PATH
-      }
-    );
-    console.log(`App listen to port: ${constants.PORT}`);
-  }
+mocks().then(() => {
+  graphQLServer.listen(constants.PORT, err => {
+    if (err) {
+      console.error(err);
+    } else {
+      new SubscriptionServer(
+        {
+          // eslint-disable-line
+          schema,
+          execute,
+          subscribe
+        },
+        {
+          server: graphQLServer,
+          path: constants.SUBSCRIPTIONS_PATH
+        }
+      );
+      console.log(`App listen to port: ${constants.PORT}`);
+    }
+  });
 });
-// });

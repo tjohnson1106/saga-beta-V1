@@ -5,6 +5,8 @@ import { pubsub } from "../../config/pubsub";
 
 const TWEET_ADDED = "tweetAdded";
 
+export const TWEET_FAVORITED = "tweetFavorited";
+
 export default {
   getTweet: async (_, { _id }, { user }) => {
     try {
@@ -16,9 +18,32 @@ export default {
   },
   getTweets: async (_, args, { user }) => {
     try {
-      // re-added after adding login check client side
+      //This is causing 'unhandled in react-apollo' error
       // await requireAuth(user);
-      return Tweet.find({}).sort({ createdAt: -1 });
+
+      const p1 = Tweet.find({}).sort({ createdAt: -1 });
+      const p2 = FavoriteTweet.findOne({ userId: user._id });
+      const [tweets, favorites] = await Promise.all([p1, p2]);
+
+      const tweetsToSend = tweets.reduce((arr, tweet) => {
+        const tw = tweet.toJSON();
+
+        if (favorites.tweets.some(t => t.equals(tweet._id))) {
+          arr.push({
+            ...tw,
+            isFavorited: true
+          });
+        } else {
+          arr.push({
+            ...tw,
+            isFavorited: false
+          });
+        }
+
+        return arr;
+      }, []);
+
+      return tweetsToSend;
     } catch (error) {
       throw error;
     }
@@ -89,5 +114,6 @@ export default {
   },
   tweetAdded: {
     subscribe: () => pubsub.asyncIterator(TWEET_ADDED)
-  }
+  },
+  tweetFavorited: () => pubsub.asyncIterator(TWEET_FAVORITED)
 };
