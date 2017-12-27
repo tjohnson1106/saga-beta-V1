@@ -46,6 +46,18 @@ class HomeScreen extends Component {
         }
 
         const newTweet = subscriptionData.data.tweetFavorited;
+        return {
+          ...prev,
+          getTweets: prev.getTweets.map(
+            tweet =>
+              tweet._id === newTweet._id
+                ? {
+                    ...tweet,
+                    favoriteCount: newTweet.favoriteCount
+                  }
+                : tweet
+          )
+        };
       }
     });
   }
