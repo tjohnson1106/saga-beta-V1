@@ -72,8 +72,8 @@ class HomeScreen extends Component {
 
   _renderItem = ({ item }) => <FeedCard {...item} />;
 
-  _renderPlaceholder = ({ item }) => (
-    <FeedCard placeholder key={item} isLoaded={this.props.data.loading} />
+  _renderPlaceholder = () => (
+    <FeedCard placeholder isLoaded={this.props.data.loading} />
   );
 
   render() {
@@ -81,7 +81,12 @@ class HomeScreen extends Component {
     if (data.loading) {
       return (
         <Root>
-          <FlatList />
+          <FlatList
+            contentContainerStyle={{ alignSelf: "stretch" }}
+            data={[1, 2, 3]}
+            renderItem={this._renderPlaceholder}
+            keyExtractor={item => item}
+          />
         </Root>
       );
     }
