@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { graphql } from "react-apollo";
+import Placeholder from "rn-placeholder";
 
 import FeedCardHeader from "./FeedCardHeader";
 import FeedCardBottom from "./FeedCardBottom";
@@ -40,14 +41,35 @@ const CardContentText = styled.Text`
   color: ${props => props.theme.PINK};
 `;
 
+const Wrapper = styled.View`
+  flex: 1;
+`;
+
 function FeedCard({
   text,
   user,
   createdAt,
   favoriteCount,
   favorite,
-  isFavorited
+  isFavorited,
+  placeholder,
+  isLoaded
 }) {
+  if (placeholder) {
+    return (
+      <Root>
+        <Placeholder.ImageContent
+          onReady={!isLoaded}
+          lineNumber={2}
+          animate="shine"
+          lastLineWidth="40%"
+        >
+          <Wrapper />
+        </Placeholder.ImageContent>
+      </Root>
+    );
+  }
+
   return (
     <Root>
       <FeedCardHeader {...user} createdAt={createdAt} />
