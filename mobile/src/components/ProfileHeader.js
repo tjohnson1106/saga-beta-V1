@@ -60,6 +60,26 @@ const UserName = styled.Text`
   opacity: 0.8;
 `;
 
+const MetaContainer = styled.View`
+  flex: 0.8;
+  /* prettier-ignore */
+  flexDirection: row;
+  /* prettier-ignore */
+  backgroundColor: red;
+`;
+
+const MetaBox = styled.View`
+  flex: 1;
+  /* prettier-ignore */
+  justifyContent: center;
+  /* prettier-ignore */
+  alignItems: center;
+  /* prettier-ignore */
+  backgroundColor: pink;
+`;
+
+const MetaText = styled.Text``;
+
 const fullName = "Thomas Johnson";
 const username = "tjohnson";
 
@@ -73,6 +93,14 @@ export default function ProfileHeader() {
           <UserName>@{username}</UserName>
         </UsernameContainer>
       </Heading>
+      <MetaContainer>
+        <MetaBox>
+          <MetaText>5 Shares</MetaText>
+        </MetaBox>
+        <MetaBox>
+          <MetaText>5 Likes</MetaText>
+        </MetaBox>
+      </MetaContainer>
     </Root>
   );
 }
