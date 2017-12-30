@@ -8,7 +8,7 @@ import { graphql, compose } from "react-apollo";
 import { connect } from "react-redux";
 
 import { colors } from "../utils/constants";
-import CREATE_NEW_DATA_MUTATION from "../graphql/mutations/createNewData";
+import CREATE_NEW_DATA_MUTATION from "../graphql/mutations/CreateNewData";
 import GET_TWEETS_QUERY from "../graphql/queries/getTweets";
 
 const Root = styled.View`
