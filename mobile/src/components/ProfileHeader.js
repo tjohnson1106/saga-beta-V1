@@ -28,13 +28,11 @@ const Heading = styled.View`
   paddingTop: 5;
 `;
 
-const Avatar = styled.View`
+const Avatar = styled.Image`
 height: ${AVATAR_SIZE};
 width: ${AVATAR_SIZE};
 /* prettier-ignore */
 borderRadius: ${AVATAR_SIZE};
-/* prettier-ignore */
-backgroundColor: yellow;
 `;
 
 const UsernameContainer = styled.View`
@@ -64,8 +62,6 @@ const MetaContainer = styled.View`
   flex: 0.8;
   /* prettier-ignore */
   flexDirection: row;
-  /* prettier-ignore */
-  backgroundColor: red;
 `;
 
 const MetaBox = styled.View`
@@ -74,31 +70,49 @@ const MetaBox = styled.View`
   justifyContent: center;
   /* prettier-ignore */
   alignItems: center;
-  /* prettier-ignore */
-  backgroundColor: pink;
 `;
 
-const MetaText = styled.Text``;
+const MetaText = styled.Text`
+  color: ${props => props.theme.SECONDARY};
+  /* prettier-ignore */
+  fontSize: 16;
+  /* prettier-ignore */
+  fontWeight: 600;
+`;
 
-const fullName = "Thomas Johnson";
-const username = "tjohnson";
+const MetaTextNumber = styled.Text`
+  color: ${props => props.theme.PRIMARY};
+`;
 
-export default function ProfileHeader() {
+export default function ProfileHeader({
+  firstName,
+  lastName,
+  avatar,
+  username
+}) {
   return (
     <Root>
       <Heading>
-        <Avatar />
+        <Avatar source={{ uri: avatar }} />
         <UsernameContainer>
-          <FullName>{fullName}</FullName>
+          <FullName>
+            {firstName} {lastName}
+          </FullName>
           <UserName>@{username}</UserName>
         </UsernameContainer>
       </Heading>
       <MetaContainer>
         <MetaBox>
-          <MetaText>5 Shares</MetaText>
+          <MetaText>
+            {" "}
+            <MetaTextNumber> 5</MetaTextNumber> Shares
+          </MetaText>
         </MetaBox>
         <MetaBox>
-          <MetaText>5 Likes</MetaText>
+          <MetaText>
+            {" "}
+            <MetaTextNumber> 5</MetaTextNumber> Likes
+          </MetaText>
         </MetaBox>
       </MetaContainer>
     </Root>
