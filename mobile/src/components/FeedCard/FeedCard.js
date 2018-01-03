@@ -85,24 +85,6 @@ function FeedCard({
   );
 }
 
-FeedCard.fragments = {
-  tweet: gql`
-    fragment Feedcard on Tweet {
-      text
-      _id
-      createdAt
-      isFavorited
-      favoriteCount
-      user {
-        username
-        firstName
-        lastName
-        avatar
-      }
-    }
-  `
-};
-
 export default graphql(FAVORITE_TWEET_MUTATION, {
   props: ({ ownProps, mutate }) => ({
     favorite: () =>
@@ -122,3 +104,21 @@ export default graphql(FAVORITE_TWEET_MUTATION, {
       })
   })
 })(FeedCard);
+
+// FeedCard.fragments = {
+//   tweet: gql`
+//     fragment Feedcard on Tweet {
+//       text
+//       _id
+//       createdAt
+//       isFavorited
+//       favoriteCount
+//       user {
+//         username
+//         firstName
+//         lastName
+//         avatar
+//       }
+//     }
+//   `
+// };
