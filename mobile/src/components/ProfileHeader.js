@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 
 const AVATAR_SIZE = 60;
 
-const Root = styled.View`
+const HeadingContainer = styled.View`
 height: 140;
 /* prettier-ignore */
 alignSelf: stretch;
@@ -32,7 +32,7 @@ const Avatar = styled.Image`
 height: ${AVATAR_SIZE};
 width: ${AVATAR_SIZE};
 /* prettier-ignore */
-borderRadius: ${AVATAR_SIZE};
+borderRadius: ${AVATAR_SIZE / 2};
 `;
 
 const UsernameContainer = styled.View`
@@ -91,7 +91,7 @@ export default function ProfileHeader({
   username
 }) {
   return (
-    <Root>
+    <HeadingContainer>
       <Heading>
         <Avatar source={{ uri: avatar }} />
         <UsernameContainer>
@@ -115,6 +115,6 @@ export default function ProfileHeader({
           </MetaText>
         </MetaBox>
       </MetaContainer>
-    </Root>
+    </HeadingContainer>
   );
 }
