@@ -9,7 +9,7 @@ import FAVORITE_TWEET_MUTATION from "../../graphql/mutations/favoriteData";
 
 const Root = styled.View`
 /* prettier-ignore */
-  minHeight: 240;
+  minHeight: 220;
   /* prettier-ignore */
   backgroundColor: ${props => props.theme.GRAY_REVISE};
   width: 100%;
