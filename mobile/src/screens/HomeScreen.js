@@ -93,12 +93,21 @@ class HomeScreen extends Component {
     // Pull in <FeedCard /> for static UI
     return (
       <Root>
-        <FlatList
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+
+        {/* <FlatList
           contentContainerStyle={{ alignSelf: "stretch" }}
           data={data.getTweets}
           keyExtractor={item => item._id}
           renderItem={this._renderItem}
-        />
+        /> */}
       </Root>
     );
   }
