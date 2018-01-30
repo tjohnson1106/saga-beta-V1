@@ -43,6 +43,24 @@ const Tabs = TabNavigator(
         )
       })
     },
+
+    // NewDataScreen: {
+    // screen: NewDataScreen,
+    //   navigationOptions: ({ navigation }) => ({
+
+    //       <AddDataButtonHeader
+    //         side="right"
+    //         onPress={() => {
+    //           Keyboard.dismiss();
+    //           navigation.goBack(null);
+    //         }}
+    //       >
+    //         <EvilIcons colors={colors.PRIMARY} size={25} name="close" />
+    //       </AddDataButtonHeader>
+    //    ) }
+
+    //Need to add followers/following
+
     // Favorites: {
     //   screen: FavoritesScreen,
     //   navigationOptions: () => ({
