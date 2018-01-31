@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components/native";
 import Touchable from "@appandflow/touchable";
+import { LinearGradient } from "expo";
 
 import SignupForm from "../components/SignupForm";
 
 const Root = styled.View`
 flex: 1;
 /* prettier-ignore */
-backgroundColor: ${props => props.theme.SECONDARY};
+backgroundColor: ${props => props.theme.GRAY_REVISE};
 position: relative;
 `;
 
