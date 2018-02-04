@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components/native"
+import styled from "styled-components/native";
 import { LinearGradient } from "expo";
 
 //temporary and Android Only
@@ -20,6 +20,10 @@ const Root = styled(Touchable).attrs({
 })`
   flex: 1;
   position: relative;
+  /* prettier-ignore */
+  justifyContent: center;
+  /* prettier-ignore */
+  alignItems: center;
 `;
 
 const T = styled.Text``;
@@ -159,46 +163,58 @@ class SignupForm extends Component {
     }
     return (
       <Root onPress={this._onOutsidePress}>
-        <BackButton onPress={this.props.onBackPress}>
-          <MaterialIcons color={colors.WHITE} size={30} name="arrow-back" />
-        </BackButton>
-        <Wrapper>
-          <InputWrapper>
-            <Input
-              placeholder="Full Name"
-              autoCapitalize="words"
-              onChangeText={text => this._onChangeText(text, "fullName")}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Input
-              placeholder="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              onChangeText={text => this._onChangeText(text, "email")}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Input
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={text => this._onChangeText(text, "password")}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Input
-              placeholder="Username"
-              autoCapitalize="none"
-              onChangeText={text => this._onChangeText(text, "username")}
-            />
-          </InputWrapper>
-        </Wrapper>
-        <ButtonConfirm
-          onPress={this._onSignupPress}
-          disabled={this._checkIfDisabled()}
+        <LinearGradient
+          colors={["#304352", "#d7d2cc"]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: 900,
+            alignItems: "center"
+          }}
         >
-          <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
-        </ButtonConfirm>
+          <BackButton onPress={this.props.onBackPress}>
+            <MaterialIcons color={colors.WHITE} size={30} name="arrow-back" />
+          </BackButton>
+          <Wrapper>
+            <InputWrapper>
+              <Input
+                placeholder="Full Name"
+                autoCapitalize="words"
+                onChangeText={text => this._onChangeText(text, "fullName")}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <Input
+                placeholder="Email"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                onChangeText={text => this._onChangeText(text, "email")}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <Input
+                placeholder="Password"
+                secureTextEntry
+                onChangeText={text => this._onChangeText(text, "password")}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <Input
+                placeholder="Username"
+                autoCapitalize="none"
+                onChangeText={text => this._onChangeText(text, "username")}
+              />
+            </InputWrapper>
+          </Wrapper>
+          <ButtonConfirm
+            onPress={this._onSignupPress}
+            disabled={this._checkIfDisabled()}
+          >
+            <ButtonConfirmText>Sign Up With Facebook</ButtonConfirmText>
+          </ButtonConfirm>
+        </LinearGradient>
       </Root>
     );
   }
