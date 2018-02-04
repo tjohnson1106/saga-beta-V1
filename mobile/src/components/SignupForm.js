@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import styled from "styled-components/native";
+import styled from "styled-components/native"
+import { LinearGradient } from "expo";
 
 //temporary and Android Only
 import { MaterialIcons } from "@expo/vector-icons";

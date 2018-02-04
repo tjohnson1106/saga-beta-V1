@@ -89,7 +89,7 @@ const NewDataModal = StackNavigator(
     NewData: {
       screen: NewDataScreen,
       navigationOptions: ({ navigation }) => ({
-        // headerLeft: <HeaderAvatar />,
+        headerLeft: <HeaderAvatar />,
         headerRight: (
           <AddDataButtonHeader
             side="right"
@@ -114,7 +114,7 @@ const AppMainNav = StackNavigator(
     Home: {
       screen: Tabs,
       navigationOptions: ({ navigation }) => ({
-        headerLeft: <ExploreScreen />,
+        headerLeft: <HeaderAvatar />,
         headerRight: (
           <AddDataButtonHeader
             side="right"
