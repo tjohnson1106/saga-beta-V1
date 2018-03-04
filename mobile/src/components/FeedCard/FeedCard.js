@@ -95,9 +95,9 @@ FeedCard.fragments = {
       favoriteCount
       user {
         username
+        avatar
         firstName
         lastName
-        avatar
       }
     }
   `
@@ -122,5 +122,3 @@ export default graphql(FAVORITE_TWEET_MUTATION, {
       })
   })
 })(FeedCard);
-
-
