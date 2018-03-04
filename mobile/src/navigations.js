@@ -65,6 +65,7 @@ const Tabs = TabNavigator(
         )
       })
     }
+
   },
   {
     lazy: true,
@@ -82,8 +83,8 @@ const Tabs = TabNavigator(
       }
     }
   }
-);
 
+);
 const NewDataModal = StackNavigator(
   {
     NewData: {
@@ -92,7 +93,7 @@ const NewDataModal = StackNavigator(
         // headerLeft: <HeaderAvatar />,
         headerRight: (
           <AddDataButtonHeader
-            side="right"
+            // side="right"
             onPress={() => {
               Keyboard.dismiss();
               navigation.goBack(null);
@@ -105,9 +106,14 @@ const NewDataModal = StackNavigator(
     }
   },
   {
-    headerMode: "none"
-  }
+    lazy: true,
+    headerMode: "none",
+    tabBarPosition: "bottom",
+  },
+
 );
+
+
 
 const AppMainNav = StackNavigator(
   {
